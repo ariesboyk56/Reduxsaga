@@ -10,7 +10,7 @@ import { STATUSES } from "../../constants/index";
 import styles from "./styles";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import * as taskActions from '../../actions/task';
+import * as taskActions from "../../actions/task";
 
 
 class TaskBoard extends Component {
@@ -18,9 +18,9 @@ class TaskBoard extends Component {
     open: false,
   };
 
-  componentDidMount(){
-    const {taskActions} = this.props;
-    const {fitchListTaskRequest} = taskActions;
+  componentDidMount() {
+    const { taskActions } = this.props;
+    const { fitchListTaskRequest } = taskActions;
     fitchListTaskRequest();
   }
 
@@ -35,7 +35,7 @@ class TaskBoard extends Component {
     });
   };
   renderBoard() {
-    const {listTask} = this.props;
+    const { listTask } = this.props;
     let xhtml = null;
     xhtml = (
       <Grid container spacing={2}>
@@ -79,20 +79,20 @@ class TaskBoard extends Component {
 TaskBoard.propTypes = {
   classes: PropTypes.object,
   taskActions: PropTypes.shape({
-    fitchListTaskRequest: PropTypes.func
+    fitchListTaskRequest: PropTypes.func,
   }),
-  listTask: PropTypes.array
+  listTask: PropTypes.array,
 };
 
-const mapStateToProps = state => {
-  return{
-    listTask: state.task.listTask
-  }
+const mapStateToProps = (state) => {
+  return {
+    listTask: state.task.listTask,
+  };
 };
-const mapDispatchToProps = dispatch => {
-  return{
-    taskActions: bindActionCreators(taskActions, dispatch)
-  }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    taskActions: bindActionCreators(taskActions, dispatch),
+  };
 };
 
 export default withStyles(styles)(
