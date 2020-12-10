@@ -13,28 +13,6 @@ import { bindActionCreators } from "redux";
 import * as taskActions from '../../actions/task';
 
 
-
-const listTask = [
-  {
-    id: 1,
-    title: "Read Book",
-    description: "Read material ui book",
-    status: 0,
-  },
-  {
-    id: 2,
-    title: "Play game",
-    description: "",
-    status: 2,
-  },
-  {
-    id: 3,
-    title: "swim",
-    description: "with friends",
-    status: 1,
-  },
-];
-
 class TaskBoard extends Component {
   state = {
     open: false,
@@ -42,8 +20,8 @@ class TaskBoard extends Component {
 
   componentDidMount(){
     const {taskActions} = this.props;
-    const {fitchListTask} = taskActions;
-    fitchListTask();
+    const {fitchListTaskRequest} = taskActions;
+    fitchListTaskRequest();
   }
 
   handleClose = () => {
@@ -57,6 +35,7 @@ class TaskBoard extends Component {
     });
   };
   renderBoard() {
+    const {listTask} = this.props;
     let xhtml = null;
     xhtml = (
       <Grid container spacing={2}>
@@ -100,11 +79,16 @@ class TaskBoard extends Component {
 TaskBoard.propTypes = {
   classes: PropTypes.object,
   taskActions: PropTypes.shape({
-    fitchListTask: PropTypes.func
-  })
+    fitchListTaskRequest: PropTypes.func
+  }),
+  listTask: PropTypes.array
 };
 
-const mapStateToProps = null;
+const mapStateToProps = state => {
+  return{
+    listTask: state.task.listTask
+  }
+};
 const mapDispatchToProps = dispatch => {
   return{
     taskActions: bindActionCreators(taskActions, dispatch)
