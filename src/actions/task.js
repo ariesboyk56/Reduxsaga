@@ -30,17 +30,17 @@ export const fitchListTaskFailed = error => {
  * B2: Reset: state tasks => [];
  * B3: fitchListTaskSuccess (data response)
  */
-export const fitchListTaskRequest = () => {
-  return (dispatch) => {
-    dispatch(fitchListTask());
-    taskApis
-      .getList()
-      .then((resp) => {
-        const {data} = resp;
-        dispatch(fitchListTaskSuccess(data));
-      })
-      .catch((error) => {
-        dispatch(fitchListTaskFailed(error));
-      });
-  };
-};
+// export const fitchListTaskRequest = () => {
+//   return (dispatch) => {
+//     dispatch(fitchListTask());
+//     taskApis
+//       .getList()
+//       .then((resp) => {
+//         const {data} = resp;
+//         dispatch(fitchListTaskSuccess(data));
+//       })
+//       .catch((error) => {
+//         dispatch(fitchListTaskFailed(error));
+//       });
+//   };
+// };

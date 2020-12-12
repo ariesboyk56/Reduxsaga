@@ -4,25 +4,24 @@ import Grid from "@material-ui/core/Grid";
 import AddIcon from "@material-ui/icons/Add";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as taskActions from "../../actions/task";
 import TaskForm from "../../components/TaskForm";
 import TaskList from "../../components/TaskList";
 import { STATUSES } from "../../constants/index";
 import styles from "./styles";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import * as taskActions from "../../actions/task";
-
 
 class TaskBoard extends Component {
   state = {
     open: false,
   };
 
-  componentDidMount() {
-    const { taskActions } = this.props;
-    const { fitchListTaskRequest } = taskActions;
-    fitchListTaskRequest();
-  }
+  // componentDidMount() {
+  //   const { taskActions } = this.props;
+  //   const { fitchListTask } = taskActions;
+  //   fitchListTask();
+  // }
 
   handleClose = () => {
     this.setState({
@@ -33,6 +32,11 @@ class TaskBoard extends Component {
     this.setState({
       open: true,
     });
+  };
+  loadData = () => {
+    const { taskActions } = this.props;
+    const { fitchListTask } = taskActions;
+    fitchListTask();
   };
   renderBoard() {
     const { listTask } = this.props;
@@ -65,6 +69,14 @@ class TaskBoard extends Component {
           variant="contained"
           color="primary"
           className={classes.button}
+          onClick={this.loadData}
+        >
+          Load Data
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          className={classes.button}
           onClick={this.openForm}
         >
           <AddIcon /> thêm mới công việc
@@ -79,7 +91,7 @@ class TaskBoard extends Component {
 TaskBoard.propTypes = {
   classes: PropTypes.object,
   taskActions: PropTypes.shape({
-    fitchListTaskRequest: PropTypes.func,
+    fitchListTask: PropTypes.func,
   }),
   listTask: PropTypes.array,
 };
