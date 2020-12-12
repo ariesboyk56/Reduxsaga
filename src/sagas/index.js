@@ -1,8 +1,9 @@
-import { call, fork, put, take } from "redux-saga/effects";
+import { call, fork, put, take, delay } from "redux-saga/effects";
 import { fitchListTaskFailed, fitchListTaskSuccess } from "../actions/task";
 import { getList } from "../apis/task";
 import { STATUS_CODE } from "../constants";
 import * as taskTypes from "../constants/task";
+import {showLoading, hideLoading} from '../actions/ui';
 
 /**
  * B1: Dispatch action fitch task
@@ -18,6 +19,7 @@ import * as taskTypes from "../constants/task";
 function* watchFitchListTaskAction() {
   while (true) {
     yield take(taskTypes.FETCH_TASK);
+    yield put(showLoading());
     const resp = yield call(getList);
     const { status, data } = resp;
     if (status === STATUS_CODE.SUCCESS) {
@@ -25,6 +27,8 @@ function* watchFitchListTaskAction() {
     } else {
       yield put(fitchListTaskFailed(data));
     }
+    yield delay(1000);
+    yield put(hideLoading());
   }
 }
 
