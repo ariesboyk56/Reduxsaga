@@ -7,6 +7,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as taskActions from "../../actions/task";
+import SearchBox from "../../components/SearchBox";
 import TaskForm from "../../components/TaskForm";
 import TaskList from "../../components/TaskList";
 import { STATUSES } from "../../constants/index";
@@ -61,6 +62,13 @@ class TaskBoard extends Component {
     xhtml = <TaskForm open={open} onClose={this.handleClose} />;
     return xhtml;
   }
+  renderSearchBox(){
+    let xhtml = null;
+    xhtml =(
+      <SearchBox />
+    );
+    return xhtml;
+  }
   render() {
     const { classes } = this.props;
     return (
@@ -81,6 +89,7 @@ class TaskBoard extends Component {
         >
           <AddIcon /> thêm mới công việc
         </Button>
+        {this.renderSearchBox()}
         {this.renderBoard()}
         {this.renderForm()}
       </div>
